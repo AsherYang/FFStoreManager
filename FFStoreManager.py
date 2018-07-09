@@ -76,6 +76,9 @@ class Ui_MainWidget(object):
         managerOther = self.menubar.addMenu(u' &其他')
 
         # =============== action ======================
+        # managerUser action
+        userQueryAction = QtGui.QAction(u'用户查询', mainWindow)
+        userQueryAction.setStatusTip(_fromUtf8('可根据手机号查询用户'))
         # managerOther action
         otherExpressAction = QtGui.QAction(u'快递查询', mainWindow)
         otherExpressAction.setStatusTip(_fromUtf8('可根据快递单号或者订单号查询'))
@@ -92,6 +95,7 @@ class Ui_MainWidget(object):
         self.goodsListWidget = QtGui.QListWidget()
         # =============== 控件 ======================
 
+        managerUser.addAction(userQueryAction)
         managerOther.addAction(otherExpressAction)
         managerOther.addAction(otherBillAction)
 
@@ -104,11 +108,20 @@ class Ui_MainWidget(object):
         hBboxLayout = QtGui.QHBoxLayout()
 
         hCateGoodsBoxLayout = QtGui.QHBoxLayout()
-        hCateGoodsBoxLayout.addWidget(self.cateListWidget)
-        hCateGoodsBoxLayout.addWidget(self.goodsListWidget)
-        hCateGoodsBoxLayout.addWidget(self.ShowMsgEdit)
+        hCateGoodsBoxLayout.setSpacing(10)
+        hCateGoodsBoxLayout.setContentsMargins(10, 10, 10, 10)
+
+        # 获取大小策略
+        cateListSizePolicy = self.cateListWidget.sizePolicy()
+        goodsListSizePolicy = self.goodsListWidget.sizePolicy()
+
+        cateListSizePolicy.setHorizontalPolicy(QSizePolicy.Maximum)
+        cateListSizePolicy.setSizePolicy(cateListSizePolicy)
+        self.goodsListWidget.setHorizontalPolicy(QSizePolicy.Expanding)
+        self.goodsListWidget.setSizePolicy(goodsListSizePolicy)
 
         hBboxLayout.addLayout(hCateGoodsBoxLayout)
+        hBboxLayout.addLayout(self.ShowMsgEdit)
         vBoxLayout.addLayout(hBboxLayout)
         self.centralwidget.setLayout(vBoxLayout)
 
