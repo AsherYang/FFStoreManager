@@ -1,6 +1,6 @@
 # FFStore 后台管理系统
 
-采用 `pyQt` 作为后台关系系统界面开发。
+采用 `pyQt4` 作为后台关系系统界面开发。
 
 ## 后台功能
 
@@ -15,6 +15,6 @@
 
 ## author
 
-Created by 欧阳帆 on 2018/07/08
+Created by AsherYang on 2018/07/08
 
 email: ouyangfan1991@gmail.com
