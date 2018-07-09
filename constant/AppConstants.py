@@ -8,6 +8,6 @@ Date  : 2017/12/25
 Desc  : 项目常量配置
 """
 
-OrganizationName = 'AsherYang'
-OrganizationDomain = 'oyfstore.com'
-ApplicationName = 'FFStore'
+OrganizationName = u'AsherYang'
+OrganizationDomain = u'oyfstore.com'
+ApplicationName = u'FFStore 直营店'
