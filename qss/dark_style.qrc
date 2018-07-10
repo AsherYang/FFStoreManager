@@ -42,5 +42,6 @@
   </qresource>
   <qresource prefix="qss">
       <file>dark_style.qss</file>
+      <file>white_style.qss</file>
   </qresource>
 </RCC>
