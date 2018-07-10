@@ -12,10 +12,14 @@ import StringIO
 import os
 import sys
 import threading
+sys.path.append('../')
 
 from PyQt4 import QtCore, QtGui
+from PyQt4.QtCore import Qt
 from PyQt4.QtNetwork import QLocalServer, QLocalSocket
+from PyQt4.QtGui import QSizePolicy
 from constant import AppConstants
+from qss import dark_style_rc
 
 reload(sys)
 # print sys.getdefaultencoding()
@@ -66,6 +70,12 @@ class Ui_MainWidget(object):
 
         self.statusBar = QtGui.QStatusBar(mainWindow)
         self.menubar = QtGui.QMenuBar(mainWindow)
+        menubarFont = self.menubar.font()
+        menubarFont.setPointSize(12)
+        # menubarFont.setFamily("宋体")
+        # menubarFont.setFamily("Monospace")
+        menubarFont.setFamily("Microsoft YaHei")
+        self.menubar.setFont(menubarFont)
 
         adminLogin = self.menubar.addMenu(u' &登录')
         managerUser = self.menubar.addMenu(u'&用户管理')
@@ -81,6 +91,7 @@ class Ui_MainWidget(object):
         userQueryAction.setStatusTip(_fromUtf8('可根据手机号查询用户'))
         # managerOther action
         otherExpressAction = QtGui.QAction(u'快递查询', mainWindow)
+        otherExpressAction.setIcon(QtGui.QIcon(":/qss/dark_img/branch_open-on.png"))
         otherExpressAction.setStatusTip(_fromUtf8('可根据快递单号或者订单号查询'))
         # otherExpressAction.connect(otherExpressAction, QtCore.SIGNAL('triggered()'), self.)
         otherBillAction = QtGui.QAction(u'账单统计', mainWindow)
@@ -91,7 +102,7 @@ class Ui_MainWidget(object):
         self.ShowMsgEdit = QtGui.QTextEdit()
         self.ShowMsgEdit.setFont(self.getFont('Monospace'))
         self.ShowMsgEdit.setText(u'showMsgEdit')
-        self.cateListWidget = QtGui.QListWidget()
+        self.cateTreeWidget = QtGui.QTreeWidget()
         self.goodsListWidget = QtGui.QListWidget()
         # =============== 控件 ======================
 
@@ -108,20 +119,28 @@ class Ui_MainWidget(object):
         hBboxLayout = QtGui.QHBoxLayout()
 
         hCateGoodsBoxLayout = QtGui.QHBoxLayout()
+        # 控件之间的间距
         hCateGoodsBoxLayout.setSpacing(10)
-        hCateGoodsBoxLayout.setContentsMargins(10, 10, 10, 10)
+        # 控件与窗体之间的间距
+        hCateGoodsBoxLayout.setContentsMargins(10, 10, 10, 0)
 
         # 获取大小策略
-        cateListSizePolicy = self.cateListWidget.sizePolicy()
+        cateTreeSizePolicy = self.cateTreeWidget.sizePolicy()
         goodsListSizePolicy = self.goodsListWidget.sizePolicy()
-
-        cateListSizePolicy.setHorizontalPolicy(QSizePolicy.Maximum)
-        cateListSizePolicy.setSizePolicy(cateListSizePolicy)
-        self.goodsListWidget.setHorizontalPolicy(QSizePolicy.Expanding)
+        # 缩放策略
+        cateTreeSizePolicy.setHorizontalPolicy(QSizePolicy.Maximum)
+        goodsListSizePolicy.setHorizontalPolicy(QSizePolicy.Expanding)
+        # 缩放因子
+        cateTreeSizePolicy.setHorizontalStretch(1)
+        goodsListSizePolicy.setHorizontalStretch(2)
+        self.cateTreeWidget.setSizePolicy(cateTreeSizePolicy)
         self.goodsListWidget.setSizePolicy(goodsListSizePolicy)
 
+        hCateGoodsBoxLayout.addWidget(self.cateTreeWidget)
+        hCateGoodsBoxLayout.addWidget(self.goodsListWidget)
         hBboxLayout.addLayout(hCateGoodsBoxLayout)
-        hBboxLayout.addLayout(self.ShowMsgEdit)
+        # hBboxLayout.addWidget(self.ShowMsgEdit)
+
         vBoxLayout.addLayout(hBboxLayout)
         self.centralwidget.setLayout(vBoxLayout)
 
@@ -168,40 +187,54 @@ class Ui_MainWidget(object):
         # print SupportFiles.hasSupportFile(pathData)
 
 
-class LogMainWindow(QtGui.QMainWindow):
+class FFStoreMainWindow(QtGui.QMainWindow):
     def __init__(self, parent=None):
         QtGui.QMainWindow.__init__(self)
 
         screen = QtGui.QDesktopWidget().screenGeometry()
         self.resize(screen.width() / 4 * 3, screen.height() / 4 * 3)
         self.setWindowTitle(AppConstants.ApplicationName)
-        self.setAcceptDrops(True)
+        # 初始化position
+        self.mDragPosition = self.pos()
+        self.setWindowFlags(Qt.FramelessWindowHint | Qt.WindowStaysOnTopHint)
+        self.setMouseTracking(True)
 
     def keyPressEvent(self, event):
-        # 设置 "Ctrl+w" 快捷键，用于关闭 tab
-        if event.key() == QtCore.Qt.Key_W and event.modifiers() == QtCore.Qt.ControlModifier:
-            self.emit(QtCore.SIGNAL('closeCurrentTabSignal()'))
+        # 设置 "Ctrl+Q" 快捷键，用于程序
+        if event.key() == QtCore.Qt.Key_Q and event.modifiers() == QtCore.Qt.ControlModifier:
+            QtGui.QApplication.quit()
 
-    def dragEnterEvent(self, event):
-        # http://www.iana.org/assignments/media-types/media-types.xhtml
-        return
+    # 支持窗口拖动,重写两个方法
+    def mousePressEvent(self, event):
+        if event.button() == Qt.LeftButton:
+            self.mDrag = True
+            self.mDragPosition = event.globalPos() - self.pos()
+            event.accept()
 
-    # 和 dragEnterEvent 结合使用，处理拖拽文件进窗口区域，进行打开。与右键和拖文件到桌面图标打开方式不同。
-    # 本方式是在窗口打开的前提下，直接拖文件到窗口上，这种方式打开。
-    def dropEvent(self, event):
-        return
+    def mouseMoveEvent(self, QMouseEvent):
+        if QMouseEvent.buttons() and Qt.LeftButton:
+            self.move(QMouseEvent.globalPos() - self.mDragPosition)
+            QMouseEvent.accept()
 
-    def closeCurrentTabSignal(self):
-        return
-
-    def dropOpenFileSignal(self, filePath):
-        return
+    def mouseReleaseEvent(self, QMouseEvent):
+        self.mDrag = False
 
 
 def main():
     app = QtGui.QApplication(sys.argv)
-    logMainWin = LogMainWindow()
+    logMainWin = FFStoreMainWindow()
     uiMainWidget = Ui_MainWidget()
+    # qssFile = QtCore.QFile('./qss/white_style.qss')
+    # qssFile = QtCore.QFile('./qss/black_style.qss')
+    # qssFile = QtCore.QFile('./qss/dark_style.qss')
+    qssFile = QtCore.QFile(':/qss/dark_style.qss')
+    qssFile.open(QtCore.QFile.ReadOnly)
+    # set style sheet
+    styleSheet = qssFile.readAll()
+    styleSheet = unicode(styleSheet, encoding='utf8')
+    app.setStyleSheet(styleSheet)
+    qssFile.close()
+    # app.setStyleSheet(qdarkstyle.load_stylesheet_pyside())
     # single QApplication solution
     # http://blog.csdn.net/softdzf/article/details/6704187
     serverName = 'FFStoreManagerServer'
