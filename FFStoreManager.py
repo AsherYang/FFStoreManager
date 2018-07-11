@@ -17,11 +17,13 @@ import threading
 from PyQt4 import QtCore, QtGui
 from PyQt4.QtCore import Qt
 from PyQt4.QtNetwork import QLocalServer, QLocalSocket
-from PyQt4.QtGui import QSizePolicy, QCursor
+from PyQt4.QtGui import QSizePolicy, QCursor, QLabel
 from constant import AppConstants
+from util.QtFontUtil import QtFontUtil
 from qss import dark_style_rc
 from qss import white_style_rc
 from util.SkinHelper import SkinHelper
+from widget.TitleBar import TitleBar
 
 reload(sys)
 # print sys.getdefaultencoding()
@@ -71,7 +73,7 @@ class Ui_MainWidget(object):
         self.centralwidget.setObjectName(_fromUtf8("centralwidget"))
 
         self.statusBar = QtGui.QStatusBar(mainWindow)
-        self.menubar = QtGui.QMenuBar(mainWindow)
+        self.menubar = QtGui.QMenuBar()
         menubarFont = self.menubar.font()
         menubarFont.setPointSize(12)
         # menubarFont.setFamily("宋体")
@@ -86,6 +88,8 @@ class Ui_MainWidget(object):
         managerOrder = self.menubar.addMenu(u'&订单管理')
         managerBanner = self.menubar.addMenu(u'&公告管理')
         managerOther = self.menubar.addMenu(u' &其他')
+        # 设置固定大小，注意添加菜单后，需要增加对应的width，此处是为了能够控制窗口大小，以便鼠标拖动
+        self.menubar.setFixedWidth(550)
 
         # =============== action ======================
         # managerUser action
@@ -93,7 +97,7 @@ class Ui_MainWidget(object):
         userQueryAction.setStatusTip(_fromUtf8('可根据手机号查询用户'))
         # managerOther action
         otherExpressAction = QtGui.QAction(u'快递查询', mainWindow)
-        otherExpressAction.setIcon(QtGui.QIcon(":/qss/dark_img/branch_open-on.png"))
+        otherExpressAction.setIcon(QtGui.QIcon(":/dardqss/dark_img/branch_open-on.png"))
         otherExpressAction.setStatusTip(_fromUtf8('可根据快递单号或者订单号查询'))
         # otherExpressAction.connect(otherExpressAction, QtCore.SIGNAL('triggered()'), self.)
         otherBillAction = QtGui.QAction(u'账单统计', mainWindow)
@@ -102,7 +106,7 @@ class Ui_MainWidget(object):
 
         # =============== 控件 ======================
         self.ShowMsgEdit = QtGui.QTextEdit()
-        self.ShowMsgEdit.setFont(self.getFont('Monospace'))
+        self.ShowMsgEdit.setFont(QtFontUtil().getFont('Monospace', 10))
         self.ShowMsgEdit.setText(u'showMsgEdit')
         self.cateTreeWidget = QtGui.QTreeWidget()
         self.goodsListWidget = QtGui.QListWidget()
@@ -113,7 +117,7 @@ class Ui_MainWidget(object):
         managerOther.addAction(otherBillAction)
 
         # 添加到 mainWindow
-        mainWindow.setMenuBar(self.menubar)
+        # mainWindow.setMenuBar(self.menubar)
         mainWindow.setStatusBar(self.statusBar)
 
         # vBoxLayout 和 hBoxLayout 的选择依据是：根据2个控件的排列方向，上下排(vBoxLayout)还是左右排(hBoxLayout)
@@ -143,7 +147,13 @@ class Ui_MainWidget(object):
         hBboxLayout.addLayout(hCateGoodsBoxLayout)
         # hBboxLayout.addWidget(self.ShowMsgEdit)
 
+        titleBar = TitleBar()
+        titleBar.setTitle(u'已登录')
+        titleBar.setLogo(':/darkqss/dark_img/undock.png')
+        vBoxLayout.addWidget(titleBar)
+        # vBoxLayout.addWidget(self.menubar)
         vBoxLayout.addLayout(hBboxLayout)
+        # vBoxLayout.setAlignment(Qt.AlignTop)
         self.centralwidget.setLayout(vBoxLayout)
 
         # 处理右键打开，或者直接拖文件到桌面图标启动。
@@ -158,12 +168,6 @@ class Ui_MainWidget(object):
 
         mainWindow.setCentralWidget(self.centralwidget)
 
-    def getFont(self, fontStr):
-        font = QtGui.QFont()
-        font.setFamily(fontStr)
-        font.setPointSize(10)
-        font.setFixedPitch(True)
-        return font
 
     def showLoginDialog(self, filterList):
         if not filterList:
@@ -195,7 +199,7 @@ class FFStoreMainWindow(QtGui.QMainWindow):
 
         screen = QtGui.QDesktopWidget().screenGeometry()
         self.resize(screen.width() / 4 * 3, screen.height() / 4 * 3)
-        self.setWindowTitle(AppConstants.ApplicationName)
+        # self.setWindowTitle(AppConstants.ApplicationName)
         # 初始化position
         self.mDragPosition = self.pos()
         self.setWindowFlags(Qt.FramelessWindowHint | Qt.WindowStaysOnTopHint)
