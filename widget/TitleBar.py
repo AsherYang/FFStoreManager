@@ -14,6 +14,7 @@ from PyQt4.QtGui import QWidget, QLabel, QPushButton, QSizePolicy, QHBoxLayout, 
 from PyQt4 import QtCore, QtGui
 from PyQt4.QtCore import Qt
 from util.QtFontUtil import QtFontUtil
+from qss import style_rc
 from util.SkinHelper import SkinHelper
 
 

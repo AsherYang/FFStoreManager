@@ -13,6 +13,7 @@ http://doc.qt.io/qt-5/qsystemtrayicon.html
 import sys
 from PyQt4 import QtGui
 from PyQt4.QtGui import QSystemTrayIcon, QIcon, QMenu
+from qss import style_rc
 
 
 class TrayIcon(QSystemTrayIcon):
