@@ -7,24 +7,27 @@ Email : ouyangfan1991@gmail.com
 Date  : 2018/7/11
 Desc  : 自定义标题栏
 https://blog.csdn.net/liang19890820/article/details/50555298
+https://blog.csdn.net/qq_38528972/article/details/78573591
 """
 
 from PyQt4.QtGui import QWidget, QLabel, QPushButton, QSizePolicy, QHBoxLayout, QIcon, QPalette
 from PyQt4 import QtCore, QtGui
 from PyQt4.QtCore import Qt
 from util.QtFontUtil import QtFontUtil
+from util.SkinHelper import SkinHelper
 
 
 class TitleBar(QWidget):
     def __init__(self, parent=None):
         QtGui.QWidget.__init__(self, parent)
+        SkinHelper().setStyle(':/qss/titlebar_style.qss')
         self.setFixedHeight(30)
 
         self.mPIconLabel = QLabel()
         self.mPTitleLabel = QLabel()
-        self.mPMinimizeBtn = QLabel()
-        self.mPMaximizeBtn = QLabel()
-        self.mPCloseBtn = QLabel()
+        self.mPMinimizeBtn = QPushButton()
+        self.mPMaximizeBtn = QPushButton()
+        self.mPCloseBtn = QPushButton()
 
         self.mPIconLabel.setFixedSize(20, 20)
         # !!必须要设置这一项，表示大小随内容缩放，配合等宽高setFixedSize，控件随图片按照等比缩放内容
@@ -41,9 +44,9 @@ class TitleBar(QWidget):
         self.mPMaximizeBtn.setObjectName(u'maximizeBtn')
         self.mPCloseBtn.setObjectName(u'closeBtn')
 
-        self.mPMinimizeBtn.setPixmap(QtGui.QPixmap(':/darkqss/dark_img/close-hover.png'))
-        self.mPMaximizeBtn.setPixmap(QtGui.QPixmap(':/darkqss/dark_img/close-pressed.png'))
-        self.mPCloseBtn.setPixmap(QtGui.QPixmap(':/darkqss/dark_img/close.png'))
+        # self.mPMinimizeBtn.setPixmap(QtGui.QPixmap(':/darkqss/dark_img/close-hover.png'))
+        # self.mPMaximizeBtn.setPixmap(QtGui.QPixmap(':/darkqss/dark_img/close-pressed.png'))
+        # self.mPCloseBtn.setPixmap(QtGui.QPixmap(':/darkqss/dark_img/close.png'))
         # !!必须要设置这一项，表示大小随内容缩放，配合等宽高setFixedSize，控件随图片按照等比缩放内容
         self.mPMinimizeBtn.setScaledContents(True)
         self.mPMaximizeBtn.setScaledContents(True)
@@ -62,6 +65,9 @@ class TitleBar(QWidget):
         hBoxLayout.setContentsMargins(5, 0, 5, 0)
         self.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)
         self.setLayout(hBoxLayout)
+        self.connect(self.mPMinimizeBtn, QtCore.SIGNAL('clicked()'), self.handleSplitterButton)
+        self.connect(self.mPMinimizeBtn, QtCore.SIGNAL('clicked()'), self.handleSplitterButton)
+        self.connect(self.mPCloseBtn, QtCore.SIGNAL('clicked()'), QtGui.qApp, QtCore.SLOT('quit()'))
 
     def setLogo(self, icon_path):
         self.mPIconLabel.setPixmap(QtGui.QPixmap(icon_path))

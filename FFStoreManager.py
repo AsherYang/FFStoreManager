@@ -20,10 +20,10 @@ from PyQt4.QtNetwork import QLocalServer, QLocalSocket
 from PyQt4.QtGui import QSizePolicy, QCursor, QLabel
 from constant import AppConstants
 from util.QtFontUtil import QtFontUtil
-from qss import dark_style_rc
-from qss import white_style_rc
+from qss import style_rc
 from util.SkinHelper import SkinHelper
 from widget.TitleBar import TitleBar
+from widget.TrayIcon import TrayIcon
 
 reload(sys)
 # print sys.getdefaultencoding()
@@ -204,6 +204,9 @@ class FFStoreMainWindow(QtGui.QMainWindow):
         self.mDragPosition = self.pos()
         self.setWindowFlags(Qt.FramelessWindowHint | Qt.WindowStaysOnTopHint)
         self.setMouseTracking(True)
+        # 显示托盘
+        self.tray = TrayIcon()
+        self.tray.show()
 
     def keyPressEvent(self, event):
         # 设置 "Ctrl+Q" 快捷键，用于程序
@@ -236,7 +239,7 @@ def main():
 
     # set skin styleSheet
     # SkinHelper().setStyle(':/whiteqss/white_style.qss')
-    SkinHelper().setStyle(':/darkqss/dark_style.qss')
+    SkinHelper().setStyle(':/qss/dark_style.qss')
 
     # single QApplication solution
     # http://blog.csdn.net/softdzf/article/details/6704187

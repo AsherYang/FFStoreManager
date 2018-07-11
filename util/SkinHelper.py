@@ -12,7 +12,7 @@ import sys
 sys.path.append('../')
 from PyQt4 import QtCore, QtGui
 from PyQt4.QtCore import QFile
-from qss import dark_style_rc
+from qss import style_rc
 
 
 class SkinHelper:
