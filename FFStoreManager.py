@@ -20,6 +20,7 @@ from PyQt4.QtNetwork import QLocalServer, QLocalSocket
 from PyQt4.QtGui import QSizePolicy, QCursor
 from constant import AppConstants
 from qss import dark_style_rc
+from qss import white_style_rc
 from util.SkinHelper import SkinHelper
 
 reload(sys)
@@ -203,7 +204,7 @@ class FFStoreMainWindow(QtGui.QMainWindow):
     def keyPressEvent(self, event):
         # 设置 "Ctrl+Q" 快捷键，用于程序
         if event.key() == QtCore.Qt.Key_Q and event.modifiers() == QtCore.Qt.ControlModifier:
-            QtGui.QApplication().quit()
+            QtGui.QApplication.quit()
 
     # 支持窗口拖动,重写三个方法
     # https://www.cnblogs.com/codeAB/p/5019439.html
@@ -215,7 +216,7 @@ class FFStoreMainWindow(QtGui.QMainWindow):
             self.setCursor(QCursor(Qt.OpenHandCursor))
 
     def mouseMoveEvent(self, QMouseEvent):
-        if QMouseEvent.buttons() and Qt.LeftButton and self.m_drag:
+        if QMouseEvent.buttons() and Qt.LeftButton and self.mDrag:
             self.move(QMouseEvent.globalPos() - self.mDragPosition)
             QMouseEvent.accept()
 
@@ -228,23 +229,10 @@ def main():
     app = QtGui.QApplication(sys.argv)
     ffstoreMainWin = FFStoreMainWindow()
     uiMainWidget = Ui_MainWidget()
-    # qssFile = QtCore.QFile('./qss/white_style.qss')
-    # qssFile = QtCore.QFile('./qss/black_style.qss')
-    # qssFile = QtCore.QFile('./qss/dark_style.qss')
-
-    # qssFile = QtCore.QFile(':/qss/dark_style.qss')
-    # qssFile.open(QtCore.QFile.ReadOnly)
-    # # set style sheet
-    # styleSheet = qssFile.readAll()
-    # styleSheet = unicode(styleSheet, encoding='utf8')
-    # app.setStyleSheet(styleSheet)
-    # qssFile.close()
-
-    # app.setStyleSheet(qdarkstyle.load_stylesheet_pyside())
 
     # set skin styleSheet
-    # SkinHelper().setStyle(':/qss/white_style.qss')
-    SkinHelper().setStyle(':/qss/dark_style.qss')
+    # SkinHelper().setStyle(':/whiteqss/white_style.qss')
+    SkinHelper().setStyle(':/darkqss/dark_style.qss')
 
     # single QApplication solution
     # http://blog.csdn.net/softdzf/article/details/6704187

@@ -20,11 +20,10 @@ class SkinHelper:
         pass
 
     def setStyle(self, style_qss):
-        app = QtGui.QApplication(sys.argv)
         qssFile = QFile(style_qss)
         qssFile.open(QFile.ReadOnly)
         # set style sheet
         styleSheet = qssFile.readAll()
         styleSheet = unicode(styleSheet, encoding='utf8')
-        app.setStyleSheet(styleSheet)
+        QtGui.QApplication.instance().setStyleSheet(styleSheet)
         qssFile.close()
