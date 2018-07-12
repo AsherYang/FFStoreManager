@@ -17,7 +17,7 @@ import threading
 from PyQt4 import QtCore, QtGui
 from PyQt4.QtCore import Qt
 from PyQt4.QtNetwork import QLocalServer, QLocalSocket
-from PyQt4.QtGui import QSizePolicy, QCursor, QLabel
+from PyQt4.QtGui import QSizePolicy, QCursor, QLabel, QPushButton
 from constant import AppConstants
 from util.QtFontUtil import QtFontUtil
 from qss import style_rc
@@ -147,9 +147,11 @@ class Ui_MainWidget(object):
         hBboxLayout.addLayout(hCateGoodsBoxLayout)
         # hBboxLayout.addWidget(self.ShowMsgEdit)
 
-        titleBar = TitleBar()
+        titleBar = TitleBar(self.mainwindow)
         titleBar.setTitle(u'已登录')
         titleBar.setLogo(':/darkqss/dark_img/undock.png')
+        titleBar.connect(titleBar, QtCore.SIGNAL('maximaxProSignal'), self.maximizedOrNormal)
+
         vBoxLayout.addWidget(titleBar)
         # vBoxLayout.addWidget(self.menubar)
         vBoxLayout.addLayout(hBboxLayout)
@@ -168,6 +170,14 @@ class Ui_MainWidget(object):
 
         mainWindow.setCentralWidget(self.centralwidget)
 
+    def minimized(self):
+        pass
+
+    def maximizedOrNormal(self):
+        if self.mainwindow.isMaximized():
+            self.mainwindow.showNormal()
+        else:
+            self.mainwindow.showMaximized()
 
     def showLoginDialog(self, filterList):
         if not filterList:
@@ -205,8 +215,10 @@ class FFStoreMainWindow(QtGui.QMainWindow):
         self.setWindowFlags(Qt.FramelessWindowHint | Qt.WindowStaysOnTopHint)
         self.setMouseTracking(True)
         # 显示托盘
-        self.tray = TrayIcon()
+        self.tray = TrayIcon(parent=self)
+        self.tray.connect(self.tray, QtCore.SIGNAL('showProgramSignal'), self.showProgram)
         self.tray.show()
+        self.tray.showMsg(u'FFStore 已启动, 请登录程序')
 
     def keyPressEvent(self, event):
         # 设置 "Ctrl+Q" 快捷键，用于程序
@@ -223,13 +235,24 @@ class FFStoreMainWindow(QtGui.QMainWindow):
             self.setCursor(QCursor(Qt.OpenHandCursor))
 
     def mouseMoveEvent(self, QMouseEvent):
-        if QMouseEvent.buttons() and Qt.LeftButton and self.mDrag:
+        if QMouseEvent.buttons() and Qt.LeftButton:
             self.move(QMouseEvent.globalPos() - self.mDragPosition)
             QMouseEvent.accept()
 
     def mouseReleaseEvent(self, QMouseEvent):
         self.mDrag = False
         self.setCursor(QCursor(Qt.ArrowCursor))
+
+    def showProgram(self):
+        # print '---> isMaximized: %s, isMin: %s, isHide: %s, isVisible:%s , isActive: %s '\
+        #       % (self.isMaximized(), self.isMinimized(), self.isHidden(), self.isVisible(), self.isActiveWindow())
+        # 同时满足isMaximized和isMinimized 是因为最大化后，再缩小
+        if self.isMaximized() and self.isMinimized():
+            self.showMaximized()
+        elif self.isMinimized():
+            self.showNormal()
+        else:
+            return
 
 
 def main():
@@ -238,8 +261,8 @@ def main():
     uiMainWidget = Ui_MainWidget()
 
     # set skin styleSheet
-    # SkinHelper().setStyle(':/whiteqss/white_style.qss')
-    SkinHelper().setStyle(':/qss/dark_style.qss')
+    # SkinHelper().setStyle(':/qss/white_style.qss')
+    SkinHelper().setStyle(app, ':/qss/dark_style.qss')
 
     # single QApplication solution
     # http://blog.csdn.net/softdzf/article/details/6704187

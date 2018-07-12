@@ -1,32 +1,27 @@
 /** title bar styleSheet**/
 
-TitleBar {
-    padding: 5px;
-    outline: none;
-}
-
 /** 测试 background-image border-image **/
-TitleBar#minimizeBtn {
-    background-image: url(:/darkqss/dark_img/close.png);
-}
-
-TitleBar#minimizeBtn:hover {
-    background-image: url(:/darkqss/dark_img/close-hover.png);
-}
-
-QPushButton#maximizeBtn {
-    background-image: url(:/darkqss/dark_img/close.png);
-}
-
-QPushButton#maximizeBtn:hover {
-    background-image: url(:/darkqss/dark_img/close-hover.png);
-}
-
-TitleBar#closeBtn {
+QPushButton#minimizeBtn {
     border-image: url(:/darkqss/dark_img/close.png);
 }
 
-TitleBar#closeBtn:hover {
+QPushButton#minimizeBtn:hover {
+    border-image: url(:/darkqss/dark_img/close-hover.png);
+}
+
+QPushButton#maximizeBtn {
+    border-image: url(:/darkqss/dark_img/close.png);
+}
+
+QPushButton#maximizeBtn:hover {
+    border-image: url(:/darkqss/dark_img/close-hover.png);
+}
+
+QPushButton#closeBtn {
+    border-image: url(:/darkqss/dark_img/close.png);
+}
+
+QPushButton#closeBtn:hover {
     border-image: url(:/darkqss/dark_img/close-hover.png);
 }
 

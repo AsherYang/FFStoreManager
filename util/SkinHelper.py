@@ -19,11 +19,11 @@ class SkinHelper:
     def __init__(self):
         pass
 
-    def setStyle(self, style_qss):
+    def setStyle(self, widget, style_qss):
         qssFile = QFile(style_qss)
         qssFile.open(QFile.ReadOnly)
         # set style sheet
         styleSheet = qssFile.readAll()
         styleSheet = unicode(styleSheet, encoding='utf8')
-        QtGui.QApplication.instance().setStyleSheet(styleSheet)
+        widget.setStyleSheet(styleSheet)
         qssFile.close()

@@ -14,14 +14,13 @@ from PyQt4.QtGui import QWidget, QLabel, QPushButton, QSizePolicy, QHBoxLayout, 
 from PyQt4 import QtCore, QtGui
 from PyQt4.QtCore import Qt
 from util.QtFontUtil import QtFontUtil
-from qss import style_rc
 from util.SkinHelper import SkinHelper
 
 
 class TitleBar(QWidget):
     def __init__(self, parent=None):
         QtGui.QWidget.__init__(self, parent)
-        SkinHelper().setStyle(':/qss/titlebar_style.qss')
+        SkinHelper().setStyle(self, ':/qss/titlebar_style.qss')
         self.setFixedHeight(30)
 
         self.mPIconLabel = QLabel()
@@ -49,9 +48,9 @@ class TitleBar(QWidget):
         # self.mPMaximizeBtn.setPixmap(QtGui.QPixmap(':/darkqss/dark_img/close-pressed.png'))
         # self.mPCloseBtn.setPixmap(QtGui.QPixmap(':/darkqss/dark_img/close.png'))
         # !!必须要设置这一项，表示大小随内容缩放，配合等宽高setFixedSize，控件随图片按照等比缩放内容
-        self.mPMinimizeBtn.setScaledContents(True)
-        self.mPMaximizeBtn.setScaledContents(True)
-        self.mPCloseBtn.setScaledContents(True)
+        # self.mPMinimizeBtn.setScaledContents(True)
+        # self.mPMaximizeBtn.setScaledContents(True)
+        # self.mPCloseBtn.setScaledContents(True)
 
         hBoxLayout = QHBoxLayout()
         hBoxLayout.addWidget(self.mPIconLabel)
@@ -66,8 +65,9 @@ class TitleBar(QWidget):
         hBoxLayout.setContentsMargins(5, 0, 5, 0)
         self.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)
         self.setLayout(hBoxLayout)
-        self.connect(self.mPMinimizeBtn, QtCore.SIGNAL('clicked()'), self.handleSplitterButton)
-        self.connect(self.mPMinimizeBtn, QtCore.SIGNAL('clicked()'), self.handleSplitterButton)
+        # 这里使用的信号槽方式有3种，以后可以参考下，理一下思路。这里都是实验ok的。
+        self.connect(self.mPMinimizeBtn, QtCore.SIGNAL('clicked()'), self.parent(), QtCore.SLOT('showMinimized()'))
+        self.connect(self.mPMaximizeBtn, QtCore.SIGNAL('clicked()'), self.maximizeBtnClick)
         self.connect(self.mPCloseBtn, QtCore.SIGNAL('clicked()'), QtGui.qApp, QtCore.SLOT('quit()'))
 
     def setLogo(self, icon_path):
@@ -76,3 +76,14 @@ class TitleBar(QWidget):
     def setTitle(self, title):
         self.mPTitleLabel.setText(title)
 
+    def minimizeBtnClick(self):
+        self.emit(QtCore.SIGNAL('minimizeProSignal'))
+
+    def maximizeBtnClick(self):
+        self.emit(QtCore.SIGNAL('maximaxProSignal'))
+
+    def minimizeProSignal(self):
+        return
+
+    def maximaxProSignal(self):
+        return
