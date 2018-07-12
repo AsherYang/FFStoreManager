@@ -261,7 +261,7 @@ def main():
     uiMainWidget = Ui_MainWidget()
 
     # set skin styleSheet
-    # SkinHelper().setStyle(':/qss/white_style.qss')
+    # SkinHelper().setStyle(app, ':/qss/white_style.qss')
     SkinHelper().setStyle(app, ':/qss/dark_style.qss')
 
     # single QApplication solution

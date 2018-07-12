@@ -1,20 +1,28 @@
 /** title bar styleSheet**/
 
-/** 测试 background-image border-image **/
+/** 注意: 需要覆盖父类QPushButton 的影响话，则要重写该控件的样式，特别是需要覆盖对应的参数样式， **/
+/** 若没覆盖对应的参数样式，则依然是显示父类样式参数 **/
+QPushButton
+{
+    background: none;
+    border: none;
+    color: none;
+}
+
 QPushButton#minimizeBtn {
-    border-image: url(:/darkqss/dark_img/close.png);
+    border-image: url(:/whiteqss/white_img/delete.png);
 }
 
 QPushButton#minimizeBtn:hover {
-    border-image: url(:/darkqss/dark_img/close-hover.png);
+    border-image: url(:/whiteqss/white_img/deleteHover.png);
 }
 
 QPushButton#maximizeBtn {
-    border-image: url(:/darkqss/dark_img/close.png);
+    border-image: url(:/darkqss/dark_img/checkbox_checked.png);
 }
 
 QPushButton#maximizeBtn:hover {
-    border-image: url(:/darkqss/dark_img/close-hover.png);
+    border-image: url(:/darkqss/dark_img/checkbox_checked_focus.png);
 }
 
 QPushButton#closeBtn {
@@ -22,6 +30,6 @@ QPushButton#closeBtn {
 }
 
 QPushButton#closeBtn:hover {
-    border-image: url(:/darkqss/dark_img/close-hover.png);
+    border-image: url(:/darkqss/dark_img/close-pressed.png);
 }
 
