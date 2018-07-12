@@ -3,9 +3,13 @@
 
 """
 Author: AsherYang
+UI_Author: zhang
 Email:  ouyangfan1991@gmail.com
 Date:   2018/7/8
 Desc:   后台首页   
+
+界面参考:  https://github.com/harry159821/XiamiForLinuxProject
+https://github.com/HuberTRoy/MusicBox
 """
 
 import StringIO
