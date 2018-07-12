@@ -10,9 +10,9 @@ https://blog.csdn.net/liang19890820/article/details/50555298
 https://blog.csdn.net/qq_38528972/article/details/78573591
 """
 
-from PyQt4.QtGui import QWidget, QLabel, QPushButton, QSizePolicy, QHBoxLayout, QIcon, QPalette
 from PyQt4 import QtCore, QtGui
-from PyQt4.QtCore import Qt
+from PyQt4.QtGui import QWidget, QLabel, QPushButton, QSizePolicy, QHBoxLayout
+
 from util.QtFontUtil import QtFontUtil
 from util.SkinHelper import SkinHelper
 
