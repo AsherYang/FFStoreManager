@@ -18,7 +18,7 @@ from util.SkinHelper import SkinHelper
 
 
 class TitleBar(QWidget):
-    def __init__(self, parent=None):
+    def __init__(self, parent):
         QtGui.QWidget.__init__(self, parent)
         SkinHelper().setStyle(self, ':/qss/titlebar_style.qss')
         self.setFixedHeight(30)

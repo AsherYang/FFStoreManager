@@ -155,6 +155,8 @@ class Ui_MainWidget(object):
         vBoxLayout.addWidget(titleBar)
         # vBoxLayout.addWidget(self.menubar)
         vBoxLayout.addLayout(hBboxLayout)
+        vBoxLayout.setAlignment(Qt.AlignTop)
+        # vBoxLayout.setContentsMargins(0, 0, 0, 0)
         # vBoxLayout.setAlignment(Qt.AlignTop)
         self.centralwidget.setLayout(vBoxLayout)
 
