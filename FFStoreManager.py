@@ -160,8 +160,7 @@ class Ui_MainWidget(object):
         # vBoxLayout.addWidget(self.menubar)
         vBoxLayout.addLayout(hBboxLayout)
         vBoxLayout.setAlignment(Qt.AlignTop)
-        # vBoxLayout.setContentsMargins(0, 0, 0, 0)
-        # vBoxLayout.setAlignment(Qt.AlignTop)
+        vBoxLayout.setContentsMargins(0, 0, 0, 0)
         self.centralwidget.setLayout(vBoxLayout)
 
         # 处理右键打开，或者直接拖文件到桌面图标启动。

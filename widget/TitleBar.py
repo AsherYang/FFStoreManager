@@ -11,15 +11,16 @@ https://blog.csdn.net/qq_38528972/article/details/78573591
 """
 
 from PyQt4 import QtCore, QtGui
-from PyQt4.QtGui import QWidget, QLabel, QPushButton, QSizePolicy, QHBoxLayout
+from PyQt4.QtGui import QMainWindow, QLabel, QPushButton, QSizePolicy, QHBoxLayout, QApplication
 
 from util.QtFontUtil import QtFontUtil
 from util.SkinHelper import SkinHelper
 
 
-class TitleBar(QWidget):
+# 将父类从QWidget 改为QMainWindow，可控制边框距离等
+class TitleBar(QMainWindow):
     def __init__(self, parent):
-        QtGui.QWidget.__init__(self, parent)
+        QtGui.QMainWindow.__init__(self, parent)
         SkinHelper().setStyle(self, ':/qss/titlebar_style.qss')
         self.setFixedHeight(30)
 
@@ -33,7 +34,7 @@ class TitleBar(QWidget):
         # !!必须要设置这一项，表示大小随内容缩放，配合等宽高setFixedSize，控件随图片按照等比缩放内容
         self.mPIconLabel.setScaledContents(True)
         self.mPTitleLabel.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)
-        self.mPTitleLabel.setFont(QtFontUtil().getFont('Microsoft YaHei', 12))
+        self.mPTitleLabel.setFont(QtFontUtil().getFont(u'微软雅黑', 14, True))
 
         self.mPMinimizeBtn.setFixedSize(20, 20)
         self.mPMaximizeBtn.setFixedSize(20, 20)
@@ -64,11 +65,14 @@ class TitleBar(QWidget):
         # 控件与窗体之间的间距
         hBoxLayout.setContentsMargins(5, 0, 5, 0)
         self.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)
-        self.setLayout(hBoxLayout)
         # 这里使用的信号槽方式有3种，以后可以参考下，理一下思路。这里都是实验ok的。
         self.connect(self.mPMinimizeBtn, QtCore.SIGNAL('clicked()'), self.parent(), QtCore.SLOT('showMinimized()'))
         self.connect(self.mPMaximizeBtn, QtCore.SIGNAL('clicked()'), self.maximizeBtnClick)
         self.connect(self.mPCloseBtn, QtCore.SIGNAL('clicked()'), QtGui.qApp, QtCore.SLOT('quit()'))
+        self.widget = QtGui.QWidget()
+        self.widget.setMouseTracking(True)
+        self.widget.setLayout(hBoxLayout)
+        self.setCentralWidget(self.widget)
 
     def setLogo(self, icon_path):
         self.mPIconLabel.setPixmap(QtGui.QPixmap(icon_path))
@@ -87,3 +91,11 @@ class TitleBar(QWidget):
 
     def maximaxProSignal(self):
         return
+
+
+if __name__ == '__main__':
+    import sys
+    app = QApplication(sys.argv)
+    TitleBar = TitleBar()
+    TitleBar.show()
+    sys.exit(app.exec_())
