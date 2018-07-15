@@ -11,6 +11,13 @@ import gzip, json, urllib, urllib2, collections, time, logging
 from ErrorInfo import OpenError
 from constant import ResponseCode
 from LogUtil import LogUtil
+from MD5Util import MD5Util
+from DateUtil import DateUtil
+import json
+import ssl
+
+context = ssl._create_unverified_context()
+
 
 def http_get(url, params={}, header={}):
     logging = LogUtil().getLogging()
@@ -34,12 +41,18 @@ def http_get(url, params={}, header={}):
 
 
 def http_post(url, params={}, header={}):
-    req = urllib2.Request(url)
-    for k, v in header:
-        req.add_header(k, v)
-    res = urllib2.urlopen(req, data=params, header=header)
+    TIMESTAMP = DateUtil().getCurrentTimeStamp()
+    SIGN = MD5Util().md5Signature(TIMESTAMP)
+    params['sign'] = SIGN
+    params['time'] = str(TIMESTAMP)
+    params = json.dumps(params)
+    # print 'param : ', params
+    req = urllib2.Request(url, params, headers=header)
+    # for k, v in header:
+    #     req.add_header(k, v)
+    res = urllib2.urlopen(req, context=context)
     body = _read_body(res)
-    check_status(body)
+    # check_status(body)
     return body
 
 
@@ -63,6 +76,11 @@ def _encode_params(**kw):
     params = []
     # kw['lang'] = "python"
     # kw['sdkversion']=TokenConstant.version
+    # md5 params
+    TIMESTAMP = DateUtil().getCurrentTimeStamp()
+    SIGN = MD5Util().md5Signature(TIMESTAMP)
+    kw['sign'] = SIGN
+    kw['time'] = TIMESTAMP
     for k, v in kw.iteritems():
         if isinstance(v, basestring):
             qv = v.encode('utf-8') if isinstance(v, unicode) else v

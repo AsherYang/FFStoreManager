@@ -8,6 +8,10 @@ Date:   2018/7/13
 Desc:   分类网络操作
 """
 
+from util.MD5Util import MD5Util
+from util import HttpUtil
+from net import HttpApi
+
 
 class CategoryHttp:
     def __init__(self):
