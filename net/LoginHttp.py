@@ -12,36 +12,52 @@ from util import HttpUtil
 from net import HttpApi
 from constant import ResponseCode
 import json
+from constant import GlobalVar
 
 
 class LoginHttp:
     def __init__(self):
-        # 本地登录状态
-        self.LocalLoginState = False
+        self.global_key_tel = 'login_tel'
+        self.global_value_pwd = 'login_pwd'
 
     def login(self, user_tel, sms_pwd):
         params = {"tel": user_tel, "sms": sms_pwd}
         # header = {'User-Agent': 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:52.0) Gecko/20100101 Firefox/52.0'}
         body = HttpUtil.http_post(HttpApi.HOST_URl+HttpApi.URL_LOGIN, params=params, header={})
         print 'login: ', json.loads(body)
+        body = json.loads(body)
+        # print type(body)
         if body['code'] == ResponseCode.op_success:
-            print 'success: ', str(body['result'])
-            pass
+            print 'success: ', body['result']
+            # save login info dict
+            GlobalVar.setValue(self.global_key_tel, user_tel)
+            GlobalVar.setValue(self.global_value_pwd, sms_pwd)
 
     def logout(self):
-        pass
+        GlobalVar.setValue(self.global_key_tel, None)
+        GlobalVar.setValue(self.global_value_pwd, None)
+
     """
-    获取登陆状态
-    前端只保存登陆状态，后端做登陆校验
-    1. 在登陆后，全局范围保存登陆信息
-    2. 保存的全局登陆信息为字典形式: loginState:{MD5(tel): time}, 手机号和超时时间，若不存在手机号，或者时间为空或者超时，都判断为无效登陆信息
-    3. 其中接口传递手机号是以 MD5 形式传递
-    3. 后面其他接口获取登陆信息。而不必重复查询数据库
+    获取登陆信息
+    用于后面访问接口，直接获取登录信息
+    登录成功，则返回字典形式{tel:sms_pwd}，否则返回 None
+    便于后端做登录校验GlobalVar.init()
+    @:return {tel:sms_pwd}
     """
-    def getLocalLoginState(self):
-        return self.LocalLoginState
+    def getLoginInfoDict(self):
+        tel = GlobalVar.getValue(self.global_key_tel)
+        pwd = GlobalVar.getValue(self.global_value_pwd)
+        if tel is None or pwd is None:
+            return None
+        return {tel: pwd}
+
+    # 便于测试接口, 正式环境,在FFStoreManager#main()方法进行
+    def init_global(self):
+        GlobalVar.init()
 
 
 if __name__ == '__main__':
     loginHttp = LoginHttp()
+    loginHttp.init_global()
     loginHttp.login(user_tel=u'13553831061', sms_pwd='462251')
+    print loginHttp.getLoginInfoDict()
