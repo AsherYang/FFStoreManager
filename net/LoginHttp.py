@@ -33,4 +33,4 @@ class LoginHttp:
 
 if __name__ == '__main__':
     loginHttp = LoginHttp()
-    loginHttp.login(user_tel=u'13553831061', sms_pwd='123')
+    loginHttp.login(user_tel=u'13553831061', sms_pwd='462251')
