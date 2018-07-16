@@ -46,7 +46,7 @@ def http_post(url, params={}, header={}):
     params['sign'] = SIGN
     params['time'] = str(TIMESTAMP)
     params = json.dumps(params)
-    # print 'param : ', params
+    print 'param : ', params
     req = urllib2.Request(url, params, headers=header)
     # for k, v in header:
     #     req.add_header(k, v)

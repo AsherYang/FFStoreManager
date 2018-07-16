@@ -28,6 +28,7 @@ from qss import style_rc
 from util.SkinHelper import SkinHelper
 from widget.TitleBar import TitleBar
 from widget.TrayIcon import TrayIcon
+from constant import GlobalVar
 
 reload(sys)
 # print sys.getdefaultencoding()
@@ -288,6 +289,8 @@ def main():
     localServer = QLocalServer()
     # 一直监听端口
     localServer.listen(serverName)
+    # 初始化全局变量
+    GlobalVar.init()
     try:
         uiMainWidget.setupUi(mainWindow=ffstoreMainWin, localServer=localServer)
         ffstoreMainWin.show()
