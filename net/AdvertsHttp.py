@@ -13,6 +13,10 @@ from net import HttpApi
 from LoginHttp import LoginHttp
 from constant import ResponseCode
 import json
+import sys
+
+reload(sys)
+sys.setdefaultencoding('utf8')
 
 
 class AdvertsHttp:
@@ -50,8 +54,9 @@ class AdvertsHttp:
 
 
 if __name__ == '__main__':
+    # 所有的接口都必须要求先进行登录
     advertsHttp = AdvertsHttp()
     advertsHttp.loginHttp.init_global()
-    advertsHttp.loginHttp.login(user_tel=u'13553831061', sms_pwd='462251')
-    # advertsHttp.addAdvert(cate_id='12345', advert_title=u'您好', advert_sort=1, advert_pic_url=u'http://www.baidu.com')
-    advertsHttp.deleteAdvert('12345')
+    advertsHttp.loginHttp.login(user_tel=u'13553831061', sms_pwd='735431')
+    advertsHttp.addAdvert(cate_id='4116840875748757505', advert_title=u"中华人民共和国万岁，万岁万万岁", advert_sort=1, advert_pic_url=u"http://www.baidu.com")
+    # advertsHttp.deleteAdvert('12345')
