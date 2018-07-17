@@ -8,8 +8,11 @@ Date  : 2018/7/16
 Desc  : adverts http, 广告 banner 网络操作
 """
 
+from util import HttpUtil
+from net import HttpApi
 from LoginHttp import LoginHttp
-from constant import GlobalVar
+from constant import ResponseCode
+import json
 
 
 class AdvertsHttp:
@@ -17,24 +20,38 @@ class AdvertsHttp:
         self.loginHttp = LoginHttp()
         pass
 
-    def addAdvert(self):
+    def addAdvert(self, cate_id, advert_title, advert_sort, advert_pic_url):
         loginInfo = self.loginHttp.getLoginInfoDict()
         if loginInfo is None or loginInfo.keys() is None:
-            print '----> login info is invalid.'
             return False
-        else:
-            user_tel = loginInfo.keys()[0]
-            sms_pwd = loginInfo[user_tel]
-            print user_tel
-            print sms_pwd
+        user_tel = loginInfo.keys()[0]
+        sms_pwd = loginInfo[user_tel]
+        params = {"tel": user_tel, "sms": sms_pwd, "cate_id": cate_id, "title": advert_title,
+                  "sort": advert_sort, "pic_url": advert_pic_url}
+        body = HttpUtil.http_post(HttpApi.HOST_URl + HttpApi.URL_ADD_ADVERT, params=params, header={})
+        body = json.loads(body)
+        print 'addAdvert: ', body
+        if body['code'] == ResponseCode.op_success:
+            print 'success: ', body['result']
 
-    def deleteAdvert(self):
-        pass
+
+    def deleteAdvert(self, advert_id):
+        loginInfo = self.loginHttp.getLoginInfoDict()
+        if loginInfo is None or loginInfo.keys() is None:
+            return False
+        user_tel = loginInfo.keys()[0]
+        sms_pwd = loginInfo[user_tel]
+        params = {"tel": user_tel, "sms": sms_pwd, "adverts_id": advert_id}
+        body = HttpUtil.http_post(HttpApi.HOST_URl + HttpApi.URL_DELETE_ADVERT, params=params, header={})
+        body = json.loads(body)
+        print 'deleteAdvert: ', body
+        if body['code'] == ResponseCode.op_success:
+            print 'success: ', body['result']
 
 
 if __name__ == '__main__':
     advertsHttp = AdvertsHttp()
     advertsHttp.loginHttp.init_global()
     advertsHttp.loginHttp.login(user_tel=u'13553831061', sms_pwd='462251')
-    advertsHttp.addAdvert()
-
+    # advertsHttp.addAdvert(cate_id='12345', advert_title=u'您好', advert_sort=1, advert_pic_url=u'http://www.baidu.com')
+    advertsHttp.deleteAdvert('12345')

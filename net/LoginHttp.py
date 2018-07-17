@@ -24,8 +24,8 @@ class LoginHttp:
         params = {"tel": user_tel, "sms": sms_pwd}
         # header = {'User-Agent': 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:52.0) Gecko/20100101 Firefox/52.0'}
         body = HttpUtil.http_post(HttpApi.HOST_URl+HttpApi.URL_LOGIN, params=params, header={})
-        print 'login: ', json.loads(body)
         body = json.loads(body)
+        print 'login: ', body
         # print type(body)
         if body['code'] == ResponseCode.op_success:
             print 'success: ', body['result']
