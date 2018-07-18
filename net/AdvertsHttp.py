@@ -58,5 +58,5 @@ if __name__ == '__main__':
     advertsHttp = AdvertsHttp()
     advertsHttp.loginHttp.init_global()
     advertsHttp.loginHttp.login(user_tel=u'13553831061', sms_pwd='735431')
-    # advertsHttp.addAdvert(cate_id='4116840875748757505', advert_title=u"中华人民共和国万岁，万岁万万岁", advert_sort=1, advert_pic_url=u"http://www.baidu.com")
+    # advertsHttp.addAdvert(cate_id='4117112222009790465', advert_title=u"中华人民共和国万岁，万岁万万岁", advert_sort=1, advert_pic_url=u"http://www.baidu.com")
     advertsHttp.deleteAdvert('4116842428933083137')
