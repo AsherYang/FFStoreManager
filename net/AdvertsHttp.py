@@ -57,6 +57,6 @@ if __name__ == '__main__':
     # 所有的接口都必须要求先进行登录
     advertsHttp = AdvertsHttp()
     advertsHttp.loginHttp.init_global()
-    advertsHttp.loginHttp.login(user_tel=u'13553831061', sms_pwd='735431')
-    # advertsHttp.addAdvert(cate_id='4117112222009790465', advert_title=u"中华人民共和国万岁，万岁万万岁", advert_sort=1, advert_pic_url=u"http://www.baidu.com")
-    advertsHttp.deleteAdvert('4116842428933083137')
+    advertsHttp.loginHttp.login(user_tel=u'13553831061', sms_pwd='976083')
+    advertsHttp.addAdvert(cate_id='4116946797280104449', advert_title=u"中华人民共和国万岁，万岁万万岁", advert_sort=2, advert_pic_url=u"http://www.baidu.com")
+    # advertsHttp.deleteAdvert('4116842428933083137')

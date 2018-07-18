@@ -67,6 +67,7 @@ if __name__ == '__main__':
     cateHttp = CategoryHttp()
     cateHttp.loginHttp.init_global()
     cateHttp.loginHttp.login(user_tel=u'13553831061', sms_pwd='735431')
+    # cate_code 唯一值限制
     # cateHttp.addCate(u'上衣', '123456', '237', 4, 'http://www.baidu.com')
     cateHttp.deleteCate('4117112222009790465')
     # cateHttp.updateByCateCode(cate_code='12345', parent_code=3333, cate_name='裤子3', cate_logo='http://www.oyf.name')
