@@ -56,7 +56,7 @@ if __name__ == '__main__':
     goodsHttp.loginHttp.init_global()
     goodsHttp.loginHttp.login(user_tel=u'13553831061', sms_pwd='976083')
     netGoods = NetGoods()
-    netGoods.cate_id = '4116842428933083137'
+    netGoods.cate_id = '4116842428933083133'
     netGoods.brand_id = '111111'
     netGoods.goods_name = u'限额'
     netGoods.market_price = '190'
@@ -65,6 +65,6 @@ if __name__ == '__main__':
     # netGoods.stock_num = 40
     netGoods.status = GoodsStatus.STATUS_ON_SALE
     # goods_code 唯一值限制
-    netGoods.goods_code = '1x123'
+    netGoods.goods_code = '12342'
     netGoods.keywords = u'上衣, 裤子, 黑色'
     goodsHttp.addGoods(netGoods)
