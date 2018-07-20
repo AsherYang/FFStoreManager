@@ -44,8 +44,18 @@ class GoodsHttp:
         if body['code'] == ResponseCode.op_success:
             print 'success: ', body['result']
 
-    def deleteGoods(self):
-        pass
+    def deleteGoods(self, goods_id):
+        loginInfo = self.loginHttp.getLoginInfoDict()
+        if loginInfo is None or loginInfo.keys() is None:
+            return False
+        user_tel = loginInfo.keys()[0]
+        sms_pwd = loginInfo[user_tel]
+        params = {"tel": user_tel, "sms": sms_pwd, "goodsid": goods_id}
+        body = HttpUtil.http_post(HttpApi.HOST_URl + HttpApi.URL_DELETE_GOODS, params=params, header={})
+        body = json.loads(body)
+        print 'deleteGoods: ', body
+        if body['code'] == ResponseCode.op_success:
+            print 'success: ', body['result']
 
     def updateGoods(self):
         pass
@@ -67,4 +77,5 @@ if __name__ == '__main__':
     # goods_code 唯一值限制
     netGoods.goods_code = '12342'
     netGoods.keywords = u'上衣, 裤子, 黑色'
-    goodsHttp.addGoods(netGoods)
+    # goodsHttp.addGoods(netGoods)
+    goodsHttp.deleteGoods('')
