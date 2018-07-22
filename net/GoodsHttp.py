@@ -107,8 +107,9 @@ if __name__ == '__main__':
     # netGoods.stock_num = 40
     netGoods.status = GoodsStatus.STATUS_ON_SALE
     # goods_code 唯一值限制
-    netGoods.goods_code = '123445'
+    netGoods.goods_code = '12344555'
     netGoods.keywords = u'上衣, 裤子, 红色'
     # goodsHttp.addGoods(netGoods)
     # goodsHttp.deleteGoods('4117356837128376321')
+    # update ffstore_goods set goods_code = "12121", current_price = "110" where goods_id = "4117356719264239617";
     goodsHttp.updateGoods(netGoods)
