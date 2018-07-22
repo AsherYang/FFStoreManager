@@ -66,6 +66,7 @@ class GoodsHttp:
         user_tel = loginInfo.keys()[0]
         sms_pwd = loginInfo[user_tel]
         """
+        goods_id = param['goodsid']
         cate_id = param['cateid']
         brand_id = param['brandid']
         goods_name = param['name']
@@ -79,7 +80,7 @@ class GoodsHttp:
         thum_logo = param['thumlogo']
         keywords = param['keywords']
         """
-        params = {"tel": user_tel, "sms": sms_pwd, "cateid": netGoods.cate_id, "brandid": netGoods.brand_id,
+        params = {"tel": user_tel, "sms": sms_pwd, "goodsid": netGoods.goods_id, "cateid": netGoods.cate_id, "brandid": netGoods.brand_id,
                   "name": netGoods.goods_name, "marketprice": netGoods.market_price, "salecount": netGoods.sale_count,
                   "currentprice": netGoods.current_price, "stocknum": netGoods.stock_num, "status": netGoods.status,
                   "goodscode": netGoods.goods_code, "goodslogo": netGoods.goods_logo, "thumlogo": netGoods.thum_logo,
@@ -94,19 +95,20 @@ if __name__ == '__main__':
     # 所有的接口都必须要求先进行登录
     goodsHttp = GoodsHttp()
     goodsHttp.loginHttp.init_global()
-    goodsHttp.loginHttp.login(user_tel=u'13553831061', sms_pwd='976083')
+    goodsHttp.loginHttp.login(user_tel=u'13553831061', sms_pwd='925016')
     netGoods = NetGoods()
-    netGoods.cate_id = '4116842428933083133'
-    netGoods.brand_id = '111111'
-    netGoods.goods_name = u'限额'
-    netGoods.market_price = '190'
-    netGoods.current_price = '90'
-    netGoods.sale_count = 13
+    netGoods.goods_id = '4117356719264239617'
+    netGoods.cate_id = '4116946797280104449'
+    netGoods.brand_id = '2222'
+    netGoods.goods_name = u'限额2'
+    netGoods.market_price = '290'
+    netGoods.current_price = '190'
+    netGoods.sale_count = 14
     # netGoods.stock_num = 40
     netGoods.status = GoodsStatus.STATUS_ON_SALE
     # goods_code 唯一值限制
-    netGoods.goods_code = '12342'
-    netGoods.keywords = u'上衣, 裤子, 黑色'
+    netGoods.goods_code = '123445'
+    netGoods.keywords = u'上衣, 裤子, 红色'
     # goodsHttp.addGoods(netGoods)
-    goodsHttp.deleteGoods('')
-    # goodsHttp.updateGoods(None)
+    # goodsHttp.deleteGoods('4117356837128376321')
+    goodsHttp.updateGoods(netGoods)
