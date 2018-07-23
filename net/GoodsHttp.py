@@ -100,15 +100,15 @@ if __name__ == '__main__':
     netGoods.goods_id = '4117356719264239617'
     netGoods.cate_id = '4116946797280104449'
     netGoods.brand_id = '2222'
-    netGoods.goods_name = u'限额2'
+    netGoods.goods_name = u'限额3'
     netGoods.market_price = '290'
-    netGoods.current_price = '190'
+    netGoods.current_price = '70'
     netGoods.sale_count = 14
-    # netGoods.stock_num = 40
+    netGoods.stock_num = 45
     netGoods.status = GoodsStatus.STATUS_ON_SALE
     # goods_code 唯一值限制
     netGoods.goods_code = '12344555'
-    netGoods.keywords = u'上衣, 裤子, 红色'
+    netGoods.keywords = u'鞋, 裤子, 红色'
     # goodsHttp.addGoods(netGoods)
     # goodsHttp.deleteGoods('4117356837128376321')
     # update ffstore_goods set goods_code = "12121", current_price = "110" where goods_id = "4117356719264239617";
