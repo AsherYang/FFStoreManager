@@ -37,7 +37,8 @@ class GoodsHttp:
                   "name": netGoods.goods_name, "marketprice": netGoods.market_price, "currentprice": netGoods.current_price,
                   "salecount": netGoods.sale_count, "stocknum": netGoods.stock_num, "status": netGoods.status,
                   "goodscode": netGoods.goods_code, "goodslogo": netGoods.goods_logo, "thumlogo": netGoods.thum_logo,
-                  "keywords": netGoods.keywords}
+                  "keywords": netGoods.keywords, "photos": netGoods.goods_photos, "thum_photo": netGoods.goods_thum_photo,
+                  "marketyear": netGoods.attr_market_year, "goodssize": netGoods.attr_size, "goodscolor": netGoods.attr_color}
         body = HttpUtil.http_post(HttpApi.HOST_URl + HttpApi.URL_ADD_GOODS, params=params, header={})
         body = json.loads(body)
         print 'addGoods: ', body
@@ -79,12 +80,19 @@ class GoodsHttp:
         goods_logo = param['goodslogo']
         thum_logo = param['thumlogo']
         keywords = param['keywords']
+
+        goods_photos = param['photos']
+        goods_thum_photo = param['thum_photo']
+        attr_market_year = param['marketyear']
+        attr_size = param['goodssize']
+        attr_color = param['goodscolor']
         """
         params = {"tel": user_tel, "sms": sms_pwd, "goodsid": netGoods.goods_id, "cateid": netGoods.cate_id, "brandid": netGoods.brand_id,
                   "name": netGoods.goods_name, "marketprice": netGoods.market_price, "salecount": netGoods.sale_count,
                   "currentprice": netGoods.current_price, "stocknum": netGoods.stock_num, "status": netGoods.status,
                   "goodscode": netGoods.goods_code, "goodslogo": netGoods.goods_logo, "thumlogo": netGoods.thum_logo,
-                  "keywords": netGoods.keywords}
+                  "keywords": netGoods.keywords, "photos": netGoods.goods_photos, "thum_photo": netGoods.goods_thum_photo,
+                  "marketyear": netGoods.attr_market_year, "goodssize": netGoods.attr_size, "goodscolor": netGoods.attr_color}
         body = HttpUtil.http_post(HttpApi.HOST_URl + HttpApi.URL_UPDATE_GOODS, params=params, header={})
         body = json.loads(body)
         print 'updateGoods: ', body

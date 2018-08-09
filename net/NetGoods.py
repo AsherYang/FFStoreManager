@@ -24,6 +24,11 @@ class NetGoods:
         self._goods_logo = None
         self._thum_logo = None
         self._keywords = None
+        self._goods_photos = None
+        self._goods_thum_photo = None
+        self._attr_market_year = None
+        self._attr_size = None
+        self._attr_color = None
 
     @property
     def goods_id(self):
@@ -128,3 +133,43 @@ class NetGoods:
     @keywords.setter
     def keywords(self, value):
         self._keywords = value
+
+    @property
+    def goods_photos(self):
+        return self._goods_photos
+
+    @goods_photos.setter
+    def goods_photos(self, value):
+        self._goods_photos = value
+
+    @property
+    def goods_thum_photo(self):
+        return self._goods_thum_photo
+
+    @goods_thum_photo.setter
+    def goods_thum_photo(self, value):
+        self._goods_thum_photo = value
+
+    @property
+    def attr_market_year(self):
+        return self._attr_market_year
+
+    @attr_market_year.setter
+    def attr_market_year(self, value):
+        self._attr_market_year = value
+
+    @property
+    def attr_size(self):
+        return self._attr_size
+
+    @attr_size.setter
+    def attr_size(self, value):
+        self._attr_size = value
+
+    @property
+    def attr_color(self):
+        return self._attr_color
+
+    @attr_color.setter
+    def attr_color(self, value):
+        self._attr_color = value
