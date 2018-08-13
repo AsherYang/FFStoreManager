@@ -27,8 +27,7 @@ class NetGoods:
         self._goods_photos = None
         self._goods_thum_photo = None
         self._attr_market_year = None
-        self._attr_size = None
-        self._attr_color = None
+        self._attr_size_color_list = None
 
     @property
     def goods_id(self):
@@ -159,17 +158,9 @@ class NetGoods:
         self._attr_market_year = value
 
     @property
-    def attr_size(self):
-        return self._attr_size
+    def attr_size_color_list(self):
+        return self._attr_size_color_list
 
-    @attr_size.setter
-    def attr_size(self, value):
-        self._attr_size = value
-
-    @property
-    def attr_color(self):
-        return self._attr_color
-
-    @attr_color.setter
-    def attr_color(self, value):
-        self._attr_color = value
+    @attr_size_color_list.setter
+    def attr_size_color_list(self, value):
+        self._attr_size_color_list = value
