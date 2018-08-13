@@ -27,7 +27,7 @@ class NetGoods:
         self._goods_photos = None
         self._goods_thum_photo = None
         self._attr_market_year = None
-        self._attr_size_color_list = None
+        self._attr_size_color_list = []
 
     @property
     def goods_id(self):
@@ -164,3 +164,10 @@ class NetGoods:
     @attr_size_color_list.setter
     def attr_size_color_list(self, value):
         self._attr_size_color_list = value
+    #
+    # def append(self, value):
+    #     return self._attr_size_color_list + [value]
+    #
+    # # extend 只能是一个列表
+    # def extend(self, value):
+    #     return self._attr_size_color_list.extend(value)
