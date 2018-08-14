@@ -129,6 +129,7 @@ if __name__ == '__main__':
     netGoods.goods_code = '12344555'
     netGoods.keywords = u'鞋, 裤子, 红色'
     netGoods.goods_photos = 'http://www.baidu.com'
+    netGoods.attr_market_year = '1983'
     size_color_list = []
     sizeColor = NetGoodsSizeColor()
     sizeColor.attr_size = 'xl'
@@ -136,11 +137,11 @@ if __name__ == '__main__':
     size_color_list.append(sizeColor)
     sizeColor2 = NetGoodsSizeColor()
     sizeColor2.attr_size = 'xxxl'
-    sizeColor2.attr_color = '黑'
+    sizeColor2.attr_color = '黑黑黑黑'
     size_color_list.append(sizeColor2)
     sizeColor3 = NetGoodsSizeColor()
     sizeColor3.attr_size = 's'
-    sizeColor3.attr_color = '白'
+    sizeColor3.attr_color = '白白白'
     size_color_list.append(sizeColor3)
     netGoods.attr_size_color_list = size_color_list
     # goodsHttp.addGoods(netGoods)
