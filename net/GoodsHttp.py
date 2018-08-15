@@ -12,6 +12,7 @@ from util import HttpUtil
 from net import HttpApi
 from net.NetGoods import NetGoods
 from net.NetGoodsSizeColor import NetGoodsSizeColor
+from net.NetGoodsPhoto import NetGoodsPhoto
 from LoginHttp import LoginHttp
 from constant import ResponseCode
 from constant import GoodsStatus
@@ -34,6 +35,13 @@ class GoodsHttp:
             return False
         user_tel = loginInfo.keys()[0]
         sms_pwd = loginInfo[user_tel]
+        # photo_thum_list
+        goodsPhotoThumList = []
+        if netGoods.goods_photos_thum_list:
+            for photoThum in netGoods.goods_photos_thum_list:
+                string = {'photos': photoThum.photo, 'thum_photo': photoThum.thum_photo}
+                goodsPhotoThumList.append(string)
+        # size_color_list
         goodsSizeColorList = []
         if netGoods.attr_size_color_list:
             for sizeColor in netGoods.attr_size_color_list:
@@ -43,7 +51,7 @@ class GoodsHttp:
                   "name": netGoods.goods_name, "marketprice": netGoods.market_price, "currentprice": netGoods.current_price,
                   "salecount": netGoods.sale_count, "stocknum": netGoods.stock_num, "status": netGoods.status,
                   "goodscode": netGoods.goods_code, "goodslogo": netGoods.goods_logo, "thumlogo": netGoods.thum_logo,
-                  "keywords": netGoods.keywords, "photos": netGoods.goods_photos, "thum_photo": netGoods.goods_thum_photo,
+                  "keywords": netGoods.keywords, "photosthumlist": goodsPhotoThumList,
                   "marketyear": netGoods.attr_market_year, "sizecolorlist": goodsSizeColorList}
         body = HttpUtil.http_post(HttpApi.HOST_URl + HttpApi.URL_ADD_GOODS, params=params, header={})
         body = json.loads(body)
@@ -93,6 +101,13 @@ class GoodsHttp:
         attr_size = param['goodssize']
         attr_color = param['goodscolor']
         """
+        # photo_thum_list
+        goodsPhotoThumList = []
+        if netGoods.goods_photos_thum_list:
+            for photoThum in netGoods.goods_photos_thum_list:
+                string = {'photos': photoThum.photo, 'thum_photo': photoThum.thum_photo}
+                goodsPhotoThumList.append(string)
+        # size_color_list
         goodsSizeColorList = []
         if netGoods.attr_size_color_list:
             for sizeColor in netGoods.attr_size_color_list:
@@ -102,7 +117,7 @@ class GoodsHttp:
                   "name": netGoods.goods_name, "marketprice": netGoods.market_price, "salecount": netGoods.sale_count,
                   "currentprice": netGoods.current_price, "stocknum": netGoods.stock_num, "status": netGoods.status,
                   "goodscode": netGoods.goods_code, "goodslogo": netGoods.goods_logo, "thumlogo": netGoods.thum_logo,
-                  "keywords": netGoods.keywords, "photos": netGoods.goods_photos, "thum_photo": netGoods.goods_thum_photo,
+                  "keywords": netGoods.keywords, "photosthumlist": goodsPhotoThumList,
                   "marketyear": netGoods.attr_market_year, "sizecolorlist": goodsSizeColorList}
         body = HttpUtil.http_post(HttpApi.HOST_URl + HttpApi.URL_UPDATE_GOODS, params=params, header={})
         body = json.loads(body)
@@ -114,7 +129,7 @@ if __name__ == '__main__':
     # 所有的接口都必须要求先进行登录
     goodsHttp = GoodsHttp()
     goodsHttp.loginHttp.init_global()
-    goodsHttp.loginHttp.login(user_tel=u'13553831061', sms_pwd='829491')
+    goodsHttp.loginHttp.login(user_tel=u'13553831061', sms_pwd='778047')
     netGoods = NetGoods()
     netGoods.goods_id = '4117356719264239617'
     netGoods.cate_id = '4116946797280104449'
@@ -128,20 +143,31 @@ if __name__ == '__main__':
     # goods_code 唯一值限制
     netGoods.goods_code = '12344555'
     netGoods.keywords = u'鞋, 裤子, 红色'
-    netGoods.goods_photos = 'http://www.baidu.com'
+    # photo
+    photo_thum_list = []
+    photoThum = NetGoodsPhoto()
+    photoThum.photo = 'http://www.baidu.com'
+    photoThum.thum_photo = 'http://www.qq.com'
+    photoThum2 = NetGoodsPhoto()
+    photoThum2.photo = 'http://www.google.com'
+    photoThum2.thum_photo = 'http://www.weixin.com'
+    photo_thum_list.append(photoThum)
+    photo_thum_list.append(photoThum2)
+    netGoods.goods_photos_thum_list = photo_thum_list
     netGoods.attr_market_year = '1983'
+    # size_color
     size_color_list = []
     sizeColor = NetGoodsSizeColor()
     sizeColor.attr_size = 'xl'
     sizeColor.attr_color = '红'
-    size_color_list.append(sizeColor)
     sizeColor2 = NetGoodsSizeColor()
     sizeColor2.attr_size = 'xxxl'
     sizeColor2.attr_color = '黑黑黑黑'
-    size_color_list.append(sizeColor2)
     sizeColor3 = NetGoodsSizeColor()
     sizeColor3.attr_size = 's'
     sizeColor3.attr_color = '白白白'
+    size_color_list.append(sizeColor)
+    size_color_list.append(sizeColor2)
     size_color_list.append(sizeColor3)
     netGoods.attr_size_color_list = size_color_list
     # goodsHttp.addGoods(netGoods)

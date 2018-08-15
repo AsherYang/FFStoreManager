@@ -24,8 +24,7 @@ class NetGoods:
         self._goods_logo = None
         self._thum_logo = None
         self._keywords = None
-        self._goods_photos = None
-        self._goods_thum_photo = None
+        self._goods_photos_thum_list = []
         self._attr_market_year = None
         self._attr_size_color_list = []
 
@@ -134,20 +133,12 @@ class NetGoods:
         self._keywords = value
 
     @property
-    def goods_photos(self):
-        return self._goods_photos
+    def goods_photos_thum_list(self):
+        return self._goods_photos_thum_list
 
-    @goods_photos.setter
-    def goods_photos(self, value):
-        self._goods_photos = value
-
-    @property
-    def goods_thum_photo(self):
-        return self._goods_thum_photo
-
-    @goods_thum_photo.setter
-    def goods_thum_photo(self, value):
-        self._goods_thum_photo = value
+    @goods_photos_thum_list.setter
+    def goods_photos_thum_list(self, value):
+        self._goods_photos_thum_list = value
 
     @property
     def attr_market_year(self):
