@@ -218,8 +218,11 @@ class FFStoreMainWindow(QtGui.QMainWindow):
         # self.setWindowTitle(AppConstants.ApplicationName)
         # 初始化position
         self.mDragPosition = self.pos()
+        # 设置顶级窗口, 无边框
         self.setWindowFlags(Qt.FramelessWindowHint | Qt.WindowStaysOnTopHint)
         self.setMouseTracking(True)
+        # 边框圆角
+        self.setAttribute(QtCore.Qt.WA_TranslucentBackground, True)
         # 显示托盘
         self.tray = TrayIcon(parent=self)
         self.tray.connect(self.tray, QtCore.SIGNAL('showProgramSignal'), self.showProgram)

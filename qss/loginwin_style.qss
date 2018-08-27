@@ -1,0 +1,30 @@
+/** title bar styleSheet**/
+
+/** 注意: 需要覆盖父类QPushButton 的影响话，则要重写该控件的样式，特别是需要覆盖对应的参数样式， **/
+/** 若没覆盖对应的参数样式，则依然是显示父类样式参数 **/
+
+LoginWindows {
+    background-color: #454e58;
+}
+
+.QWidget {
+    border-radius:9px;
+    min-width: 350px;
+    min-height: 200px;
+    padding-top: 0px;
+}
+
+QLineEdit {
+    height: 21px;
+    min-width: 190px;
+    max-width: 190px;
+    min-height: 21px;
+    max-height: 21px;
+    padding: -5px;
+    border: 7px;
+    border-image: url(":/darkqss/dark_imgnav_srch_input.png");
+}
+
+QLabel{
+    color:orange;
+}
