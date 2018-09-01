@@ -45,9 +45,8 @@ QPushButton#closeBtn:hover {
     border-image: url(:/darkqss/dark_img/close-pressed.png);
 }
 
-/**
-QLabel#titleLabel {
+QLabel {
     background-color: #76797C;
     border: 2px solid red;
 }
-*/
+
