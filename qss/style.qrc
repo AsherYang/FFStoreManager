@@ -40,6 +40,8 @@
     <file>dark_img/radio_unchecked_focus.png</file>
     <file>dark_img/radio_unchecked.png</file>
     <file>dark_img/nav_srch_input.png</file>
+    <file>dark_img/login_btn_normal.png</file>
+    <file>dark_img/login_btn_press.png</file>
   </qresource>
 
   <qresource prefix="whiteqss">
@@ -104,6 +106,8 @@
     <file>white_img/upButton.png</file>
     <file>white_img/warning.png</file>
     <file>white_img/nav_srch_input.png</file>
+    <file>white_img/login_btn_normal.png</file>
+    <file>white_img/login_btn_press.png</file>
   </qresource>
   <qresource prefix="qss">
       <file>dark_style.qss</file>

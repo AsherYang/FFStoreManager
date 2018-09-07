@@ -45,8 +45,51 @@ QPushButton#closeBtn:hover {
     border-image: url(:/darkqss/dark_img/close-pressed.png);
 }
 
-QLabel {
-    background-color: #76797C;
-    border: 2px solid red;
+QPushButton#loginBtn {
+    min-width: 220px;
+    max-width: 220px;
+    height: 30px;
+    min-height: 30px;
+    max-height: 30px;
+    color:orange;
+    border-radius: 0px;
+    border-image: url(:/darkqss/dark_img/login_btn_normal.png);
 }
 
+QPushButton#loginBtn:hover {
+    min-width: 220px;
+    max-width: 220px;
+    height: 30px;
+    min-height: 30px;
+    max-height: 30px;
+    color:orange;
+    border-radius: 0px;
+    border-image: url(:/darkqss/dark_img/login_btn_normal.png);
+}
+
+QPushButton#loginBtn:pressed {
+    min-width: 220px;
+    max-width: 220px;
+    height: 30px;
+    min-height: 30px;
+    max-height: 30px;
+    color:orange;
+    border-radius: 0px;
+    border-image: url(:/darkqss/dark_img/login_btn_press.png);
+}
+
+
+QLabel {
+    color:orange;
+}
+
+QLineEdit {
+    height: 31px;
+    min-width: 240px;
+    max-width: 240px;
+    min-height: 31px;
+    max-height: 31px;
+    padding: -5px;
+    border: 7px;
+    border-image: url(:/darkqss/dark_img/nav_srch_input.png);
+}
