@@ -81,6 +81,7 @@ QPushButton#loginBtn:pressed {
 
 QLabel {
     color:orange;
+    border-radius: 0px;
 }
 
 QLineEdit {
