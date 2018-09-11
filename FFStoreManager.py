@@ -21,13 +21,14 @@ import threading
 from PyQt4 import QtCore, QtGui
 from PyQt4.QtCore import Qt
 from PyQt4.QtNetwork import QLocalServer, QLocalSocket
-from PyQt4.QtGui import QSizePolicy, QCursor, QLabel, QPushButton
+from PyQt4.QtGui import QSizePolicy, QCursor, QDesktopWidget, QLabel, QPushButton
 from constant import AppConstants
 from util.QtFontUtil import QtFontUtil
 from qss import style_rc
 from util.SkinHelper import SkinHelper
 from widget.TitleBar import TitleBar
 from widget.TrayIcon import TrayIcon
+from widget.LoginWindow import LoginWindow
 from constant import GlobalVar
 
 reload(sys)
@@ -215,6 +216,8 @@ class FFStoreMainWindow(QtGui.QMainWindow):
 
         screen = QtGui.QDesktopWidget().screenGeometry()
         self.resize(screen.width() / 4 * 3, screen.height() / 4 * 3)
+        # desktop = QDesktopWidget()
+        # self.move((desktop.width() - self.width()) / 3, (desktop.height() - self.height()) / 0.85)
         # self.setWindowTitle(AppConstants.ApplicationName)
         # 初始化position
         self.mDragPosition = self.pos()
@@ -295,8 +298,10 @@ def main():
     # 初始化全局变量
     GlobalVar.init()
     try:
-        uiMainWidget.setupUi(mainWindow=ffstoreMainWin, localServer=localServer)
+        loginWindow = LoginWindow(ffstoreMainWin)
+        # uiMainWidget.setupUi(mainWindow=ffstoreMainWin, localServer=localServer)
         ffstoreMainWin.show()
+        # uiMainWidget.setupUi(mainWindow=ffstoreMainWin, localServer=localServer)
         sys.exit(app.exec_())
     finally:
         localServer.close()

@@ -333,6 +333,16 @@ QLineEdit
     color: #eff0f1;
 }
 
+QLineEdit#loginEdit
+{
+    color: orange;
+}
+
+QLineEdit#loginEdit:hover
+{
+    color: #d6d65b;
+}
+
 QGroupBox {
     border:1px solid #76797C;
     border-radius: 2px;

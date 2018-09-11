@@ -11,6 +11,7 @@ import sys
 
 from PyQt4 import QtGui, QtCore
 from PyQt4.QtGui import QMainWindow, QWidget
+from util.QtFontUtil import QtFontUtil
 
 from util.SkinHelper import SkinHelper
 
@@ -25,24 +26,17 @@ class LoginWindow(QMainWindow):
         self.setWindowFlags(QtCore.Qt.X11BypassWindowManagerHint | QtCore.Qt.FramelessWindowHint)
         self.setAttribute(QtCore.Qt.WA_TranslucentBackground, True)
         self.vBoxLayout = QtGui.QVBoxLayout()
-        self.font = QtGui.QFont()
-        self.font.setPixelSize(14)  # 设置字号32,以像素为单位
-        self.font.setFamily("SimSun")  # 设置字体，宋体
-        self.font.setFamily(u"微软雅黑")
-        # self.font.setWeight(20)    # 设置字型,不加粗
-        self.font.setBold(True)
-        self.font.setItalic(False)  # 设置字型,不倾斜
-        self.font.setUnderline(False)  # 设置字型,无下划线
-
         self.palette = QtGui.QPalette()
-        self.palette.setColor(QtGui.QPalette.WindowText, QtCore.Qt.white)
+        self.palette.setColor(QtGui.QPalette.WindowText, QtCore.Qt.red)
         # mail
         self.mailHBoxLayout = QtGui.QHBoxLayout()
-        self.mailLabel = QtGui.QLabel("UserEmail: ")
-        self.mailLabel.setFont(self.font)
+        self.mailLabel = QtGui.QLabel("UserEmail:")
+        self.mailLabel.setFixedWidth(82)
+        self.mailLabel.setFont(QtFontUtil().getFont('微软雅黑', 14, True))
         self.mailLabel.setPalette(self.palette)
         self.mailEditLabel = QtGui.QLineEdit()
-        self.mailEditLabel.setFont(self.font)
+        self.mailEditLabel.setObjectName(u'loginEdit')
+        self.mailEditLabel.setFont(QtFontUtil().getFont('微软雅黑', 14, True))
         self.mailEditLabel.setPalette(self.palette)
         self.mailEditLabel.setTextMargins(10, 0, 10, 0)
         self.mailHBoxLayout.addStretch(1)
@@ -51,12 +45,14 @@ class LoginWindow(QMainWindow):
         self.mailHBoxLayout.addStretch(1)
         # password
         self.pwdHBoxLayout = QtGui.QHBoxLayout()
-        self.pwdLabel = QtGui.QLabel("Password: ")
-        self.pwdLabel.setFont(self.font)
+        self.pwdLabel = QtGui.QLabel("Password:")
+        self.pwdLabel.setFixedWidth(80)
+        self.pwdLabel.setFont(QtFontUtil().getFont('微软雅黑', 14, True))
         self.pwdLabel.setPalette(self.palette)
         self.pwdEditLabel = QtGui.QLineEdit()
+        self.pwdEditLabel.setObjectName(u'loginEdit')
         self.pwdEditLabel.setEchoMode(QtGui.QLineEdit.Password)
-        self.pwdEditLabel.setFont(self.font)
+        self.pwdEditLabel.setFont(QtFontUtil().getFont('微软雅黑', 14, True))
         self.pwdEditLabel.setPalette(self.palette)
         self.pwdEditLabel.setTextMargins(10, 0, 10, 0)
         self.pwdHBoxLayout.addStretch(1)
@@ -68,7 +64,7 @@ class LoginWindow(QMainWindow):
         self.loginBtn = QtGui.QPushButton()
         self.loginBtn.setObjectName(u'loginBtn')
         self.loginBtn.setText(u'登陆')
-        self.loginBtn.setFont(self.font)
+        self.loginBtn.setFont(QtFontUtil().getFont('微软雅黑', 14, True))
         self.loginHBoxLayout.addWidget(self.loginBtn)
 
         self.vBoxLayout.addStretch(1)

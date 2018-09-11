@@ -94,3 +94,13 @@ QLineEdit {
     border: 7px;
     border-image: url(:/darkqss/dark_img/nav_srch_input.png);
 }
+
+QLineEdit#loginEdit
+{
+    color: orange;
+}
+
+QLineEdit#loginEdit:hover
+{
+    color: #d6d65b;
+}
