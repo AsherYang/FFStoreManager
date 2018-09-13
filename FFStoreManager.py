@@ -267,10 +267,28 @@ class FFStoreMainWindow(QtGui.QMainWindow):
             return
 
 
+class ShowWindowLogic:
+    def __init__(self, **args):
+        self.mainWindow = args['mainWindow']
+        self.localServer = args['localServer']
+        self.loginWindow = LoginWindow(self.mainWindow)
+        self.uiMainWidget = Ui_MainWidget()
+
+    def show(self):
+        self.loginWindow.connect(self.loginWindow, QtCore.SIGNAL('loginStatusSignal(bool)'), self.loginCallBack)
+        self.mainWindow.show()
+
+    def loginCallBack(self, status):
+        print 'loginStatus: %s' % status
+        if status:
+            self.loginWindow.close()
+            self.uiMainWidget.setupUi(mainWindow=self.mainWindow, localServer=self.localServer)
+            self.mainWindow.show()
+
+
 def main():
     app = QtGui.QApplication(sys.argv)
     ffstoreMainWin = FFStoreMainWindow()
-    uiMainWidget = Ui_MainWidget()
 
     # set skin styleSheet
     # SkinHelper().setStyle(app, ':/qss/white_style.qss')
@@ -298,10 +316,10 @@ def main():
     # 初始化全局变量
     GlobalVar.init()
     try:
-        loginWindow = LoginWindow(ffstoreMainWin)
+        showWindowLogic = ShowWindowLogic(mainWindow=ffstoreMainWin, localServer=localServer)
+        showWindowLogic.show()
         # uiMainWidget.setupUi(mainWindow=ffstoreMainWin, localServer=localServer)
-        ffstoreMainWin.show()
-        # uiMainWidget.setupUi(mainWindow=ffstoreMainWin, localServer=localServer)
+        # ffstoreMainWin.show()
         sys.exit(app.exec_())
     finally:
         localServer.close()

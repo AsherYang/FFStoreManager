@@ -81,13 +81,18 @@ class LoginWindow(QMainWindow):
 
     def login(self, userEmail, userPwd):
         print 'useEmail: %s , usePwd: %s' % (userEmail, userPwd)
+        if not userEmail or not userPwd:
+            self.loginBtn.setText(u'请输入用户名和密码')
+            return False
         loginHttp = LoginHttp()
+        self.loginBtn.setText(u'登陆中')
         loginResult = loginHttp.login(user_tel=userEmail, sms_pwd=userPwd)
         print 'loginResult: ', loginResult
         if loginResult:
             self.loginBtn.setText(u'登陆成功')
         else:
             self.loginBtn.setText(u'登陆失败')
+        self.emit(QtCore.SIGNAL('loginStatusSignal(bool)'), loginResult)
         return loginResult
 
     def loginByThread(self):
@@ -96,6 +101,9 @@ class LoginWindow(QMainWindow):
         threadUtil = ThreadUtil(funcName=self.login, userEmail=userEmail, userPwd=userPwd)
         threadUtil.setDaemon(True)
         threadUtil.start()
+
+    def loginStatusSignal(self, loginStatus):
+        return
 
 
 if __name__ == '__main__':
