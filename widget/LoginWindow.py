@@ -14,6 +14,8 @@ from PyQt4.QtGui import QMainWindow, QWidget
 from util.QtFontUtil import QtFontUtil
 
 from util.SkinHelper import SkinHelper
+from net.LoginHttp import LoginHttp
+from util.ThreadUtil import ThreadUtil
 
 
 class LoginWindow(QMainWindow):
@@ -65,6 +67,7 @@ class LoginWindow(QMainWindow):
         self.loginBtn.setObjectName(u'loginBtn')
         self.loginBtn.setText(u'登陆')
         self.loginBtn.setFont(QtFontUtil().getFont('微软雅黑', 14, True))
+        self.loginBtn.connect(self.loginBtn, QtCore.SIGNAL('clicked()'), self.loginByThread)
         self.loginHBoxLayout.addWidget(self.loginBtn)
 
         self.vBoxLayout.addStretch(1)
@@ -75,6 +78,24 @@ class LoginWindow(QMainWindow):
         self.vBoxLayout.addStretch(1)
         self.vBoxLayout.setContentsMargins(40, 40, 40, 40)
         self.centralwidget.setLayout(self.vBoxLayout)
+
+    def login(self, userEmail, userPwd):
+        print 'useEmail: %s , usePwd: %s' % (userEmail, userPwd)
+        loginHttp = LoginHttp()
+        loginResult = loginHttp.login(user_tel=userEmail, sms_pwd=userPwd)
+        print 'loginResult: ', loginResult
+        if loginResult:
+            self.loginBtn.setText(u'登陆成功')
+        else:
+            self.loginBtn.setText(u'登陆失败')
+        return loginResult
+
+    def loginByThread(self):
+        userEmail = str(self.mailEditLabel.text())
+        userPwd = str(self.pwdEditLabel.text())
+        threadUtil = ThreadUtil(funcName=self.login, userEmail=userEmail, userPwd=userPwd)
+        threadUtil.setDaemon(True)
+        threadUtil.start()
 
 
 if __name__ == '__main__':

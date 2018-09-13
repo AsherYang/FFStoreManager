@@ -32,6 +32,9 @@ class LoginHttp:
             # save login info dict
             GlobalVar.setValue(self.global_key_tel, user_tel)
             GlobalVar.setValue(self.global_value_pwd, sms_pwd)
+            return True
+        else:
+            return False
 
     def logout(self):
         GlobalVar.setValue(self.global_key_tel, None)
