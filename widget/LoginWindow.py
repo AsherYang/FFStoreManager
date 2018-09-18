@@ -105,6 +105,14 @@ class LoginWindow(QMainWindow):
     def loginStatusSignal(self, loginStatus):
         return
 
+    def keyPressEvent(self, event):
+        # 设置 "enter" 快捷键，用于登陆按键
+        if event.key() == QtCore.Qt.Key_Enter:
+            self.loginByThread()
+        # 设置 "Ctrl+Q" 快捷键，用于程序
+        elif event.key() == QtCore.Qt.Key_Q and event.modifiers() == QtCore.Qt.ControlModifier:
+            QtGui.QApplication.quit()
+
 
 if __name__ == '__main__':
     app = QtGui.QApplication(sys.argv)
