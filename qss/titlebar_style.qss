@@ -45,37 +45,46 @@ QPushButton#closeBtn:hover {
     border-image: url(:/darkqss/dark_img/close-pressed.png);
 }
 
+/*border-image: url(:/darkqss/dark_img/login_btn_normal.png);*/
 QPushButton#loginBtn {
-    min-width: 220px;
-    max-width: 220px;
-    height: 30px;
-    min-height: 30px;
-    max-height: 30px;
+    min-width: 140px;
+    max-width: 140px;
+    height: 25px;
+    min-height: 25px;
+    max-height: 25px;
     color:orange;
-    border-radius: 0px;
-    border-image: url(:/darkqss/dark_img/login_btn_normal.png);
+    border: none;
+    outline: 0;
+    border-radius: 5px;
+    background-color:white;
 }
 
+/*border-image: url(:/darkqss/dark_img/login_btn_normal.png);*/
 QPushButton#loginBtn:hover {
-    min-width: 220px;
-    max-width: 220px;
-    height: 30px;
-    min-height: 30px;
-    max-height: 30px;
+    min-width: 140px;
+    max-width: 140px;
+    height: 25px;
+    min-height: 25px;
+    max-height: 25px;
     color:orange;
-    border-radius: 0px;
-    border-image: url(:/darkqss/dark_img/login_btn_normal.png);
+    border: none;
+    outline: 0;
+    border-radius: 5px;
+    background-color:white;
 }
 
+/*border-image: url(:/darkqss/dark_img/login_btn_press.png);*/
 QPushButton#loginBtn:pressed {
-    min-width: 220px;
-    max-width: 220px;
-    height: 30px;
-    min-height: 30px;
-    max-height: 30px;
+    min-width: 140px;
+    max-width: 140px;
+    height: 25px;
+    min-height: 25px;
+    max-height: 25px;
     color:orange;
-    border-radius: 0px;
-    border-image: url(:/darkqss/dark_img/login_btn_press.png);
+    border: none;
+    outline: 0;
+    border-radius: 5px;
+    background-color:#E6DF72;
 }
 
 

@@ -65,9 +65,10 @@ class LoginWindow(QMainWindow):
         self.loginHBoxLayout = QtGui.QHBoxLayout()
         self.loginBtn = QtGui.QPushButton()
         self.loginBtn.setObjectName(u'loginBtn')
-        self.loginBtn.setText(u'登陆')
+        self.loginBtn.setText(u'登录')
         self.loginBtn.setFont(QtFontUtil().getFont('微软雅黑', 14, True))
         self.loginBtn.connect(self.loginBtn, QtCore.SIGNAL('clicked()'), self.loginByThread)
+        self.loginHBoxLayout.addSpacing(75)
         self.loginHBoxLayout.addWidget(self.loginBtn)
 
         self.vBoxLayout.addStretch(1)
