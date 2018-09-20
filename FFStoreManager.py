@@ -230,7 +230,7 @@ class FFStoreMainWindow(QtGui.QMainWindow):
         self.tray = TrayIcon(parent=self)
         self.tray.connect(self.tray, QtCore.SIGNAL('showProgramSignal'), self.showProgram)
         self.tray.show()
-        self.tray.showMsg(u'FFStore 已启动, 请登录程序')
+        self.tray.showMsg(u'FFStore 已启动, 请登录系统')
 
     def keyPressEvent(self, event):
         # 设置 "Ctrl+Q" 快捷键，用于程序

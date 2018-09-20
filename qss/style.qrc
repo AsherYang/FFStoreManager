@@ -42,6 +42,7 @@
     <file>dark_img/nav_srch_input.png</file>
     <file>dark_img/login_btn_normal.png</file>
     <file>dark_img/login_btn_press.png</file>
+    <file>dark_img/maikailun.jpg</file>
   </qresource>
 
   <qresource prefix="whiteqss">
