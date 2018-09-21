@@ -119,6 +119,7 @@ class LoginWindow(QMainWindow):
         self.mainHBoxLayout.addLayout(self.rightVBoxLayout, 1)
         self.centralwidget.setLayout(self.mainHBoxLayout)
         # fix setPlaceholderText in first editLabel not show problem
+        # @see {https://stackoverflow.com/questions/24274318/placeholder-text-not-showing-pyside-pyqt}
         self.setFocus()
 
     def login(self, userEmail, userPwd):
