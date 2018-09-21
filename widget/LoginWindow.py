@@ -52,6 +52,7 @@ class LoginWindow(QMainWindow):
         self.mailLabel.setPalette(self.palette)
         self.mailEditLabel = QtGui.QLineEdit()
         self.mailEditLabel.setObjectName(u'loginEdit')
+        self.mailEditLabel.setPlaceholderText(u'请输入手机号码')
         self.mailEditLabel.setFont(QtFontUtil().getFont('微软雅黑', 14, True))
         self.mailEditLabel.setPalette(self.palette)
         self.mailEditLabel.setTextMargins(10, 0, 10, 0)
@@ -68,6 +69,7 @@ class LoginWindow(QMainWindow):
         self.pwdEditLabel = QtGui.QLineEdit()
         self.pwdEditLabel.setObjectName(u'loginEdit')
         self.pwdEditLabel.setEchoMode(QtGui.QLineEdit.Password)
+        self.pwdEditLabel.setPlaceholderText(u'请输入手机动态码')
         self.pwdEditLabel.setFont(QtFontUtil().getFont('微软雅黑', 14, True))
         self.pwdEditLabel.setPalette(self.palette)
         self.pwdEditLabel.setTextMargins(10, 0, 10, 0)
@@ -116,6 +118,8 @@ class LoginWindow(QMainWindow):
         self.mainHBoxLayout.addLayout(self.leftVBoxLayout, 1)
         self.mainHBoxLayout.addLayout(self.rightVBoxLayout, 1)
         self.centralwidget.setLayout(self.mainHBoxLayout)
+        # fix setPlaceholderText in first editLabel not show problem
+        self.setFocus()
 
     def login(self, userEmail, userPwd):
         print 'useEmail: %s , usePwd: %s' % (userEmail, userPwd)
