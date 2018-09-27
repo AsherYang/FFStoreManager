@@ -24,7 +24,7 @@ class LoginWindow(QMainWindow):
         SkinHelper().setStyle(self, ':/qss/titlebar_style.qss')
         self.centralwidget = QWidget()
         self.setCentralWidget(self.centralwidget)
-        self.resize(780, 560)
+        self.resize(1024, 668)
         self.setWindowFlags(QtCore.Qt.X11BypassWindowManagerHint | QtCore.Qt.FramelessWindowHint)
         self.setAttribute(QtCore.Qt.WA_TranslucentBackground, True)
         self.mainHBoxLayout = QtGui.QHBoxLayout()

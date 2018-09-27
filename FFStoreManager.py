@@ -186,14 +186,6 @@ class Ui_MainWidget(object):
         else:
             self.mainwindow.showMaximized()
 
-    def showLoginDialog(self, filterList):
-        if not filterList:
-            return
-        filterDialog = QtGui.QDialog()
-        filterDialog.setWindowTitle(u'登陆')
-        filterDialog.resize(260, 400)
-        filterDialog.exec_()
-
     # 监听新到来的连接(新的终端被打开)
     def newLocalSocketConnection(self):
         # print 'newLocalSocketConnection'
@@ -277,6 +269,8 @@ class ShowWindowLogic:
     def show(self):
         self.loginWindow.connect(self.loginWindow, QtCore.SIGNAL('loginStatusSignal(bool)'), self.loginCallBack)
         self.mainWindow.show()
+        print self.loginWindow.leftVBoxLayout.geometry().width()
+        print self.loginWindow.rightVBoxLayout.geometry().width()
 
     def loginCallBack(self, status):
         print 'loginStatus: %s' % status
